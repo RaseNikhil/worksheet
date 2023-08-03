@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet ,Text } from 'react-native';
+import Canvas from './Canvas';
+import Sidebar from './Sidebar';
 
-export default function App() {
+const App = () => {
+  const [color, setColor] = useState('#000000');
+  const [strokeWidth, setStrokeWidth] = useState(5);
+  const [tool, setTool] = useState('brush');
+
+  const handleColorChange = (newColor) => {
+    setColor(newColor);
+  };
+
+  const handleStrokeWidthChange = (newWidth) => {
+    setStrokeWidth(newWidth);
+  };
+
+  const handleToolChange = (newTool) => {
+    setTool(newTool);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Canvas color={color} strokeWidth={strokeWidth} tool={tool} />
+      <Sidebar
+        onColorChange={handleColorChange}
+        onStrokeWidthChange={handleStrokeWidthChange}
+        onToolChange={handleToolChange}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
+
+export default App;
